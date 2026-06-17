@@ -1,0 +1,41 @@
+:root {
+  --black: #04000a;
+  --surface: #0d0118;
+  --surface2: #160228;
+  --pink: #ff0080;
+  --pink-hot: #ff2d9a;
+  --pink-soft: #ff6eb4;
+  --pink-pale: #ffb3d9;
+  --magenta: #c8005a;
+  --white: #fdf0f7;
+  --muted: #9a7a8a;
+  --glow: 0 0 20px #ff008066, 0 0 60px #ff008033;
+  --glow-sm: 0 0 10px #ff008088, 0 0 30px #ff008044;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'Space Grotesk', 'Segoe UI', 'Poppins', sans-serif;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--black);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--pink);
+  border-radius: 2px;
+}
