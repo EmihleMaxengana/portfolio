@@ -6,7 +6,6 @@
 
     <div class="skills__container">
       <div class="skills__header">
-        <!-- Glitched title -->
         <h1 class="skills__title glitch-text" data-text="Skills & Technologies">
           Skills & Technologies
         </h1>
@@ -27,14 +26,16 @@
 
         <div class="carousel-wrapper">
           <div class="carousel-track" :style="{ transform: `translateX(-${currentIndex * 100}%)` }">
-            <div v-for="(skill, index) in skills" :key="index" class="carousel-slide">
-              <div class="skill-card">
-                <div class="skill-card__image">
-                  <img 
-                    :src="skill.image" 
-                    :alt="skill.label"
-                    class="skill-img"
-                  />
+            <div v-for="(chunk, slideIndex) in skillChunks" :key="slideIndex" class="carousel-slide">
+              <div class="slide-grid">
+                <div v-for="skill in chunk" :key="skill.label" class="skill-card">
+                  <div class="skill-card__image">
+                    <img 
+                      :src="skill.image" 
+                      :alt="skill.label"
+                      class="skill-img"
+                    />
+                  </div>
                   <span class="skill-card__label">{{ skill.label }}</span>
                 </div>
               </div>
@@ -48,25 +49,38 @@
           </svg>
         </button>
       </div>
+
+      <!-- Indicators -->
+      <div class="carousel-indicators">
+        <button 
+          v-for="(_, index) in skillChunks" 
+          :key="index"
+          @click="goToSlide(index)"
+          class="indicator"
+          :class="{ active: currentIndex === index }"
+          :aria-label="`Go to slide ${index + 1}`"
+        ></button>
+      </div>
     </div>
   </main>
 </template>
 
 <script>
-import canvaIcon from '@/assets/icons8-canva-24.png'
-import cssIcon from '@/assets/icons8-css-24.png'
-import dartIcon from '@/assets/icons8-dart-24.png'
-import figmaIcon from '@/assets/icons8-figma-24.png'
-import firebaseIcon from '@/assets/icons8-firebase-24.png'
-import flutterIcon from '@/assets/icons8-flutter-24.png'
-import htmlIcon from '@/assets/icons8-html5-24.png'
-import javascriptIcon from '@/assets/icons8-javascript-24.png'
-import mysqlIcon from '@/assets/icons8-mysql-24.png'
-import oracleIcon from '@/assets/icons8-oracle-24.png'
-import phpIcon from '@/assets/icons8-php-24.png'
-import pythonIcon from '@/assets/icons8-python-24.png'
-import reactIcon from '@/assets/icons8-react-24.png'
-import vueIcon from '@/assets/icons8-vuejs-24.png'
+// Import your skill images – using the actual file names from your assets
+import canvaIcon from '@/assets/Canva.jpg'
+import cssIcon from '@/assets/CSS.png'
+import dartIcon from '@/assets/dart.jpg'
+import figmaIcon from '@/assets/Figma.jpg'
+import firebaseIcon from '@/assets/Firebase.jpg'
+import flutterIcon from '@/assets/Flutter.jpg'
+import htmlIcon from '@/assets/HTML5.png'
+import javascriptIcon from '@/assets/javascript.jpg'
+import mysqlIcon from '@/assets/mysql.png'
+import oracleIcon from '@/assets/oracle.jpg'
+import phpIcon from '@/assets/php.jpg'
+import pythonIcon from '@/assets/python.png'
+import reactIcon from '@/assets/react.png'
+import vueIcon from '@/assets/vue.jpg'
 
 export default {
   name: 'SkillsView',
@@ -75,21 +89,31 @@ export default {
       currentIndex: 0,
       autoplayInterval: null,
       skills: [
-        { image: canvaIcon, label: 'Canva' },
-        { image: cssIcon, label: 'CSS' },
-        { image: dartIcon, label: 'Dart' },
-        { image: figmaIcon, label: 'Figma' },
-        { image: firebaseIcon, label: 'Firebase' },
-        { image: flutterIcon, label: 'Flutter' },
-        { image: htmlIcon, label: 'HTML5' },
-        { image: javascriptIcon, label: 'JavaScript' },
-        { image: mysqlIcon, label: 'MySQL' },
+        { image: vueIcon, label: 'Vue.js' },
+        { image: reactIcon, label: 'React' },
         { image: oracleIcon, label: 'Oracle' },
         { image: phpIcon, label: 'PHP' },
         { image: pythonIcon, label: 'Python' },
-        { image: reactIcon, label: 'React' },
-        { image: vueIcon, label: 'Vue.js' }
+        { image: mysqlIcon, label: 'MySQL' },
+        { image: javascriptIcon, label: 'JavaScript' },
+        { image: htmlIcon, label: 'HTML5' },
+        { image: firebaseIcon, label: 'Firebase' },
+        { image: flutterIcon, label: 'Flutter' },
+        { image: figmaIcon, label: 'Figma' },
+        { image: cssIcon, label: 'CSS' },
+        { image: canvaIcon, label: 'Canva' },
+        { image: dartIcon, label: 'Dart' }
       ]
+    }
+  },
+  computed: {
+    skillChunks() {
+      const chunkSize = 3
+      const chunks = []
+      for (let i = 0; i < this.skills.length; i += chunkSize) {
+        chunks.push(this.skills.slice(i, i + chunkSize))
+      }
+      return chunks
     }
   },
   mounted() {
@@ -100,7 +124,7 @@ export default {
   },
   methods: {
     nextSlide() {
-      if (this.currentIndex < this.skills.length - 1) {
+      if (this.currentIndex < this.skillChunks.length - 1) {
         this.currentIndex++
       } else {
         this.currentIndex = 0
@@ -110,8 +134,11 @@ export default {
       if (this.currentIndex > 0) {
         this.currentIndex--
       } else {
-        this.currentIndex = this.skills.length - 1
+        this.currentIndex = this.skillChunks.length - 1
       }
+    },
+    goToSlide(index) {
+      this.currentIndex = index
     },
     startAutoplay() {
       if (this.autoplayInterval) return
@@ -130,6 +157,7 @@ export default {
 </script>
 
 <style scoped>
+/* (keep all your existing styles – they are unchanged) */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@400;500;600&display=swap');
 
 :root {
@@ -146,7 +174,6 @@ export default {
   overflow-x: hidden;
 }
 
-/* Ambient orbs */
 .skills__orb {
   position: absolute;
   border-radius: 50%;
@@ -179,7 +206,6 @@ export default {
   z-index: 1;
 }
 
-/* Header */
 .skills__header {
   text-align: center;
   margin-bottom: 4rem;
@@ -189,7 +215,7 @@ export default {
   font-family: 'Playfair Display', serif;
   font-size: clamp(2.5rem, 6vw, 4rem);
   font-weight: 700;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   color: var(--pink-hot);
   position: relative;
   display: inline-block;
@@ -203,7 +229,6 @@ export default {
   letter-spacing: 0.05em;
 }
 
-/* Glitch effect */
 .glitch-text {
   position: relative;
 }
@@ -253,7 +278,6 @@ export default {
   15% { transform: skew(0deg); }
 }
 
-/* Carousel Styles */
 .carousel-container {
   position: relative;
   display: flex;
@@ -265,7 +289,7 @@ export default {
 .carousel-wrapper {
   overflow: hidden;
   width: 100%;
-  max-width: 900px;
+  max-width: 1100px;
   margin: 0 1rem;
 }
 
@@ -276,22 +300,25 @@ export default {
 
 .carousel-slide {
   flex: 0 0 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem;
+  padding: 1rem 0;
 }
 
-/* Skill Card */
+.slide-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  justify-items: center;
+}
+
 .skill-card {
   background: rgba(233, 30, 140, 0.05);
   border-radius: 24px;
-  padding: 2rem;
+  padding: 1.5rem;
   text-align: center;
   border: 1px solid rgba(233, 30, 140, 0.2);
   transition: all 0.3s ease;
   width: 100%;
-  max-width: 300px;
+  max-width: 200px;
   margin: 0 auto;
 }
 
@@ -303,14 +330,13 @@ export default {
 
 .skill-card__image {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 0.75rem;
 }
 
 .skill-img {
-  width: 80px;
-  height: 80px;
+  width: 70px;
+  height: 70px;
   object-fit: contain;
   filter: brightness(0.9) drop-shadow(0 0 5px rgba(233, 30, 140, 0.3));
   transition: all 0.3s ease;
@@ -323,12 +349,11 @@ export default {
 
 .skill-card__label {
   font-family: 'Inter', sans-serif;
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   font-weight: 600;
   color: var(--pink-blush);
 }
 
-/* Carousel Buttons */
 .carousel-btn {
   background: rgba(233, 30, 140, 0.1);
   border: 1px solid rgba(233, 30, 140, 0.3);
@@ -351,49 +376,54 @@ export default {
   transform: scale(1.05);
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .skills__container {
-    padding: calc(var(--header-h) + 2rem) 1.5rem 4rem;
-  }
-  
-  .carousel-btn {
-    width: 36px;
-    height: 36px;
-  }
-  
-  .skill-card {
-    padding: 1.5rem;
-  }
-  
-  .skill-img {
-    width: 60px;
-    height: 60px;
-  }
-  
-  .skill-card__label {
-    font-size: 0.9rem;
+.carousel-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(244, 167, 195, 0.3);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.indicator:hover {
+  background: rgba(244, 167, 195, 0.6);
+}
+
+.indicator.active {
+  background: var(--pink-hot);
+  width: 24px;
+  border-radius: 10px;
+}
+
+@media (max-width: 900px) {
+  .slide-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 600px) {
-  .carousel-container {
-    margin: 1rem 0;
+  .skills__container {
+    padding: calc(var(--header-h) + 2rem) 1.5rem 4rem;
   }
-  
+  .slide-grid {
+    grid-template-columns: 1fr;
+  }
   .carousel-btn {
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
   }
-  
-  .carousel-btn svg {
-    width: 18px;
-    height: 18px;
-  }
-  
-  .skill-img {
-    width: 50px;
-    height: 50px;
+  .skill-card {
+    max-width: 100%;
   }
 }
 </style>

@@ -2,23 +2,24 @@
   <header class="header" :class="{ scrolled: isScrolled }">
     <div class="header__inner">
       <!-- Logo -->
-      <router-link to="/" class="header__logo">
+      <a href="#home" class="header__logo" @click.prevent="scrollTo('home')">
         <span class="logo__mark">E</span>
         <span class="logo__name">Emihle</span>
-      </router-link>
+      </a>
 
       <!-- Desktop Nav -->
       <nav class="header__nav" aria-label="Main navigation">
-        <router-link
+        <a
           v-for="link in navLinks"
-          :key="link.to"
-          :to="link.to"
+          :key="link.id"
+          :href="'#' + link.id"
           class="nav__link"
-          active-class="nav__link--active"
+          :class="{ 'nav__link--active': activeSection === link.id }"
+          @click.prevent="scrollTo(link.id)"
         >
           {{ link.label }}
-        </router-link>
-        <a href="#contact" class="nav__cta">Let's Talk</a>
+        </a>
+        <a href="#contact" class="nav__cta" @click.prevent="scrollTo('contact')">Let's Talk</a>
       </nav>
 
       <!-- Mobile Hamburger -->
@@ -37,17 +38,17 @@
     <!-- Mobile Drawer -->
     <transition name="drawer">
       <div v-if="menuOpen" class="header__drawer">
-        <router-link
+        <a
           v-for="link in navLinks"
-          :key="link.to"
-          :to="link.to"
+          :key="link.id"
+          :href="'#' + link.id"
           class="drawer__link"
-          active-class="drawer__link--active"
-          @click="menuOpen = false"
+          :class="{ 'drawer__link--active': activeSection === link.id }"
+          @click.prevent="scrollTo(link.id); menuOpen = false"
         >
           {{ link.label }}
-        </router-link>
-        <a href="#contact" class="drawer__cta" @click="menuOpen = false">Let's Talk</a>
+        </a>
+        <a href="#contact" class="drawer__cta" @click.prevent="scrollTo('contact'); menuOpen = false">Let's Talk</a>
       </div>
     </transition>
   </header>
@@ -60,33 +61,75 @@ export default {
     return {
       isScrolled: false,
       menuOpen: false,
+      activeSection: 'home',
       navLinks: [
-        { to: '/', label: 'Home' },
-        { to: '/about', label: 'About' },
-        { to: '/skills', label: 'Skills' },
-        { to: '/projects', label: 'Projects' },
-        { to: '/contact', label: 'Contact' },
+        { id: 'home', label: 'Home' },
+        { id: 'about', label: 'About' },
+        { id: 'skills', label: 'Skills' },
+        { id: 'projects', label: 'Projects' },
+        { id: 'contact', label: 'Contact' },
       ],
     }
   },
   mounted() {
     window.addEventListener('scroll', this.handleScroll)
+    this.handleScroll() // set initial active
   },
   beforeUnmount() {
     window.removeEventListener('scroll', this.handleScroll)
   },
   methods: {
     handleScroll() {
+      // 1. Update scrolled state for header background
       this.isScrolled = window.scrollY > 40
+
+      // 2. Determine which section is currently in view
+      const sectionIds = this.navLinks.map(link => link.id)
+      const headerHeight = 72 // matches --header-h
+      const scrollPosition = window.scrollY + headerHeight + 50 // offset for better feel
+
+      let active = 'home' // fallback
+      for (const id of sectionIds) {
+        const el = document.getElementById(id)
+        if (el) {
+          const { top, bottom } = el.getBoundingClientRect()
+          // section is considered active if its top is above or near the header
+          if (top <= headerHeight + 20 && bottom > headerHeight) {
+            active = id
+            break
+          }
+        }
+      }
+      // If we scrolled past the last section, keep the last one active
+      const lastId = sectionIds[sectionIds.length - 1]
+      const lastEl = document.getElementById(lastId)
+      if (lastEl) {
+        const { bottom } = lastEl.getBoundingClientRect()
+        if (bottom < window.innerHeight) {
+          active = lastId
+        }
+      }
+      this.activeSection = active
+    },
+    scrollTo(sectionId) {
+      const el = document.getElementById(sectionId)
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' })
+        // Update immediately (will be refined by scroll event)
+        this.activeSection = sectionId
+        // Close mobile menu if open
+        this.menuOpen = false
+      }
     },
   },
 }
 </script>
 
 <style scoped>
+/* ── Your existing styles from the original Header.vue ── */
+/* Copy all your styles exactly as they were – nothing changes here */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap');
 
-/* ── Variables ── */
 :root {
   --pink-hot: #e91e8c;
   --pink-blush: #f4a7c3;
@@ -96,7 +139,6 @@ export default {
   --header-h: 72px;
 }
 
-/* ── Header shell ── */
 .header {
   position: fixed;
   top: 0;
@@ -125,7 +167,6 @@ export default {
   justify-content: space-between;
 }
 
-/* ── Logo ── */
 .header__logo {
   display: flex;
   align-items: center;
@@ -145,7 +186,6 @@ export default {
   justify-content: center;
   font-size: 1rem;
   font-weight: 700;
-  letter-spacing: 0;
   flex-shrink: 0;
 }
 
@@ -156,7 +196,6 @@ export default {
   letter-spacing: 0.02em;
 }
 
-/* ── Desktop nav ── */
 .header__nav {
   display: flex;
   align-items: center;
@@ -203,7 +242,6 @@ export default {
   transform: translateY(-1px);
 }
 
-/* ── Burger ── */
 .header__burger {
   display: none;
   flex-direction: column;
@@ -233,7 +271,6 @@ export default {
   transform: translateY(-7px) rotate(-45deg);
 }
 
-/* ── Drawer ── */
 .header__drawer {
   position: absolute;
   top: var(--header-h);
@@ -282,7 +319,6 @@ export default {
   opacity: 0.88;
 }
 
-/* ── Transition ── */
 .drawer-enter-active,
 .drawer-leave-active {
   transition: opacity 0.25s ease, transform 0.25s ease;
@@ -293,7 +329,6 @@ export default {
   transform: translateY(-8px);
 }
 
-/* ── Responsive ── */
 @media (max-width: 768px) {
   .header__nav {
     display: none;

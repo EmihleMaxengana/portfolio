@@ -15,7 +15,6 @@
 
           <!-- ROTATING ROLES -->
           <div class="hero__roles">
-            <span class="roles__prefix">I'm a</span>
             <span class="roles__rotating">{{ currentRole }}</span>
           </div>
 
