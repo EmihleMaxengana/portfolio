@@ -8,7 +8,7 @@
       <div class="hero__container">
         <div class="hero__content">
           
-          <!-- GLITCHED NAME - straight line on desktop, stacks on mobile -->
+          <!-- GLITCHED NAME -->
           <h1 class="hero__name glitch-text" data-text="Emihle Maxengana">
             Emihle Maxengana
           </h1>
@@ -18,7 +18,7 @@
             <span class="roles__rotating">{{ currentRole }}</span>
           </div>
 
-           <p class="hero__bio">
+          <p class="hero__bio">
             Crafting complete applications that look great and perform even better
           </p>
           <p class="hero__bio">
@@ -28,12 +28,29 @@
             Powering applications behind the scenes.
           </p>
           <p class="hero__bio">
-           Building mobile experiences that make an impact.
+            Building mobile experiences that make an impact.
           </p>
 
           <div class="hero__actions">
-            <router-link to="/projects" class="btn btn--primary">View My Work</router-link>
-            <router-link to="/contact" class="btn btn--ghost">Get In Touch</router-link>
+            <!-- View My Work -->
+            <a href="#projects" class="btn btn--primary" @click.prevent="scrollTo('projects')">
+              View My Work
+            </a>
+
+            <!-- Download CV (in between) -->
+            <a 
+              href="/Emihle_Maxengana_CV.pdf" 
+              download="Emihle_Maxengana_CV.pdf"
+              type="application/pdf"
+              class="btn btn--download"
+            >
+              Download CV
+            </a>
+
+            <!-- Get In Touch -->
+            <a href="#contact" class="btn btn--ghost" @click.prevent="scrollTo('contact')">
+              Get In Touch
+            </a>
           </div>
 
           <div class="hero__scroll" aria-hidden="true">
@@ -57,14 +74,13 @@
 </template>
 
 <script>
-// IMPORT your image here
 import profileImage from '@/assets/EmihleHomePage.png'
 
 export default {
   name: 'HomeView',
   data() {
     return {
-      profileImage, // Add this to data
+      profileImage,
       roles: [
         'Frontend Developer',
         'Backend Developer', 
@@ -81,6 +97,14 @@ export default {
       this.currentRoleIndex = (this.currentRoleIndex + 1) % this.roles.length
       this.currentRole = this.roles[this.currentRoleIndex]
     }, 1800)
+  },
+  methods: {
+    scrollTo(sectionId) {
+      const el = document.getElementById(sectionId)
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' })
+      }
+    }
   }
 }
 </script>
@@ -175,7 +199,7 @@ export default {
   right: -100px;
 }
 
-/* GLITCHED NAME - straight line on desktop, half font size */
+/* GLITCHED NAME */
 .hero__name {
   font-family: 'Playfair Display', serif;
   font-size: clamp(1.8rem, 5vw, 2.5rem);
@@ -189,7 +213,6 @@ export default {
   white-space: nowrap;
 }
 
-/* On smaller devices, allow stacking */
 @media (max-width: 500px) {
   .hero__name {
     white-space: normal;
@@ -248,7 +271,7 @@ export default {
   15% { transform: skew(0deg); }
 }
 
-/* ROTATING ROLES - doubled size */
+/* ROTATING ROLES */
 .hero__roles {
   font-family: 'Inter', sans-serif;
   font-size: clamp(2rem, 6vw, 3rem);
@@ -327,6 +350,20 @@ export default {
   background: rgba(244, 167, 195, 0.06);
   transform: translateY(-2px);
   border-color: rgba(244, 167, 195, 0.6);
+}
+
+/* Download CV button style */
+.btn--download {
+  background: transparent;
+  color: var(--pink-blush);
+  border: 1px solid var(--pink-hot);
+  transition: all 0.3s ease;
+}
+
+.btn--download:hover {
+  background: rgba(233, 30, 140, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(233, 30, 140, 0.2);
 }
 
 .hero__scroll {
