@@ -1,6 +1,5 @@
 <template>
   <main class="skills">
-    <!-- Ambient orbs -->
     <div class="skills__orb skills__orb--1" aria-hidden="true"></div>
     <div class="skills__orb skills__orb--2" aria-hidden="true"></div>
 
@@ -12,7 +11,6 @@
         <p class="skills__subtitle">Technologies I work with</p>
       </div>
 
-      <!-- Image Carousel -->
       <div 
         class="carousel-container" 
         @mouseenter="stopAutoplay" 
@@ -50,7 +48,6 @@
         </button>
       </div>
 
-      <!-- Indicators -->
       <div class="carousel-indicators">
         <button 
           v-for="(_, index) in skillChunks" 

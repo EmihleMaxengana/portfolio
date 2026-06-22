@@ -1,6 +1,5 @@
 <template>
   <main class="projects">
-    <!-- Ambient orbs -->
     <div class="projects__orb projects__orb--1" aria-hidden="true"></div>
     <div class="projects__orb projects__orb--2" aria-hidden="true"></div>
 
@@ -10,7 +9,6 @@
         <p class="projects__subtitle">Some things I've built</p>
       </div>
 
-      <!-- Carousel -->
       <div class="carousel-container">
         <button class="carousel-btn prev-btn" @click="prevSlide" aria-label="Previous">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -20,7 +18,6 @@
 
         <div class="carousel-wrapper">
           <div class="carousel-track" :style="{ transform: `translateX(-${currentIndex * 100}%)` }">
-            <!-- Loop over chunks (each chunk is a slide with 3 cards) -->
             <div v-for="(chunk, slideIndex) in projectChunks" :key="slideIndex" class="carousel-slide">
               <div class="slide-grid">
                 <div v-for="project in chunk" :key="project.title" class="project-card" @click="openModal(project)">
@@ -55,7 +52,6 @@
         </button>
       </div>
 
-      <!-- Indicators -->
       <div class="carousel-indicators">
         <button 
           v-for="(_, index) in projectChunks" 
@@ -68,7 +64,6 @@
       </div>
     </div>
 
-    <!-- Modal -->
     <Transition name="modal">
       <div v-if="selectedProject" class="modal-overlay" @click="closeModal">
         <div class="modal-content" @click.stop>
@@ -103,7 +98,6 @@
 </template>
 
 <script>
-// Import images from assets
 import fullStackImage from '@/assets/FullStack.jpg'
 import ECommerceImage from '@/assets/ECommerce.jpg'
 import FrontEndImage from '@/assets/FrontEnd.jpg'

@@ -24,7 +24,6 @@ export default {
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap');
 
-/* ── Variables ── */
 :root {
   --pink-hot: #e91e8c;
   --pink-blush: #f4a7c3;
@@ -33,13 +32,11 @@ export default {
   --dark-mid: #3d1a27;
 }
 
-/* ── Footer shell ── */
 .footer {
   background: var(--dark-base);
   border-top: 1px solid rgba(233, 30, 140, 0.18);
 }
 
-/* ── Bottom bar ── */
 .footer__bar {
   padding: 1.5rem 0;
 }
@@ -61,7 +58,6 @@ export default {
   margin: 0;
 }
 
-/* ── Socials ── */
 .footer__socials {
   display: flex;
   gap: 0.75rem;
@@ -79,7 +75,6 @@ export default {
   transform: translateY(-2px);
 }
 
-/* ── Responsive ── */
 @media (max-width: 600px) {
   .footer__bar-inner {
     flex-direction: column;

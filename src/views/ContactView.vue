@@ -1,6 +1,5 @@
 <template>
   <main class="contact">
-    <!-- Ambient orbs -->
     <div class="contact__orb contact__orb--1" aria-hidden="true"></div>
     <div class="contact__orb contact__orb--2" aria-hidden="true"></div>
 
@@ -10,7 +9,6 @@
         <p class="contact__subtitle">Get in touch with me</p>
       </div>
 
-      <!-- Bio -->
       <div class="contact__bio-section">
         <p class="contact__bio">
           I am currently open to professional opportunities, internships, and freelance collaborations.
@@ -23,7 +21,6 @@
       </div>
 
       <div class="contact__grid">
-        <!-- Left: Contact Info -->
         <div class="contact__left">
           <div class="contact__info">
             <h3 class="contact__info-title">Contact Information</h3>
@@ -59,12 +56,10 @@
           </div>
         </div>
 
-        <!-- Right: Gmail + mailto -->
         <div class="contact__right">
           <div class="contact-options">
             <h3 class="options-title">Send me an email</h3>
 
-            <!-- Main button: Gmail compose -->
             <a 
               href="https://mail.google.com/mail/?view=cm&fs=1&to=emihlemaxengana05@gmail.com&su=Portfolio%20Inquiry&body=Hello%20Emihle%2C%0A%0AI%20came%20across%20your%20portfolio%20and%20would%20like%20to%20get%20in%20touch%20with%20you.%0A%0APlease%20include%3A%0A-%20Your%20name%0A-%20Your%20phone%20number%20(optional)%0A-%20Your%20message%0A%0AThank%20you!"
               target="_blank"
@@ -78,7 +73,6 @@
               Compose in Gmail
             </a>
 
-            <!-- Alternative: mailto link -->
             <p class="or-divider">— or —</p>
             <a 
               href="mailto:emihlemaxengana05@gmail.com?subject=Portfolio%20Inquiry&body=Hello%20Emihle%2C%0A%0AI%20came%20across%20your%20portfolio%20and%20would%20like%20to%20get%20in%20touch%20with%20you.%0A%0APlease%20include%3A%0A-%20Your%20name%0A-%20Your%20phone%20number%20(optional)%0A-%20Your%20message%0A%0AThank%20you!"

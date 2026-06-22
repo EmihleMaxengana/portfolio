@@ -1,12 +1,10 @@
 <template>
   <main class="about">
-    <!-- Ambient orbs -->
     <div class="about__orb about__orb--1" aria-hidden="true"></div>
     <div class="about__orb about__orb--2" aria-hidden="true"></div>
 
     <div class="about__container">
       <div class="about__grid">
-        <!-- Left side: Image -->
         <div class="about__image">
           <div class="image__wrapper">
             <img 
@@ -17,14 +15,11 @@
           </div>
         </div>
 
-        <!-- Right side: Content -->
         <div class="about__content">
-          <!-- Glitched title -->
           <h1 class="about__title glitch-text" data-text="About Me">
             About Me
           </h1>
 
-          <!-- About text -->
           <p class="about__bio">
             Creative and results-driven Full-Stack Developer with experience designing and building modern web and mobile applications using a variety of programming languages, frameworks, and development tools.
           </p>
@@ -34,8 +29,6 @@
           <p class="about__bio">
             Recognized for adaptability, attention to detail, and a commitment to continuous learning, with the ability to thrive in fast-paced and collaborative environments. Eager to contribute innovative ideas, technical expertise, and a strong work ethic to forward-thinking organizations.
           </p>
-
-          <!-- REMOVED the two buttons -->
         </div>
       </div>
     </div>

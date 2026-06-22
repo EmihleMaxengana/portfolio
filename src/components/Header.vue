@@ -1,13 +1,11 @@
 <template>
   <header class="header" :class="{ scrolled: isScrolled }">
     <div class="header__inner">
-      <!-- Logo -->
       <a href="#home" class="header__logo" @click.prevent="scrollTo('home')">
         <span class="logo__mark">E</span>
         <span class="logo__name">Emihle</span>
       </a>
 
-      <!-- Desktop Nav -->
       <nav class="header__nav" aria-label="Main navigation">
         <a
           v-for="link in navLinks"
@@ -22,7 +20,6 @@
         <a href="#contact" class="nav__cta" @click.prevent="scrollTo('contact')">Let's Talk</a>
       </nav>
 
-      <!-- Mobile Hamburger -->
       <button
         class="header__burger"
         :class="{ open: menuOpen }"
@@ -35,7 +32,6 @@
       </button>
     </div>
 
-    <!-- Mobile Drawer -->
     <transition name="drawer">
       <div v-if="menuOpen" class="header__drawer">
         <a
@@ -126,8 +122,6 @@ export default {
 </script>
 
 <style scoped>
-/* ── Your existing styles from the original Header.vue ── */
-/* Copy all your styles exactly as they were – nothing changes here */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap');
 
 :root {

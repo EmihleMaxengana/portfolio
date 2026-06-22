@@ -1,19 +1,15 @@
 <template>
   <main class="home">
-    <!-- ── Hero ── -->
     <section class="hero">
       <div class="hero__orb hero__orb--1" aria-hidden="true"></div>
       <div class="hero__orb hero__orb--2" aria-hidden="true"></div>
 
       <div class="hero__container">
         <div class="hero__content">
-          
-          <!-- GLITCHED NAME -->
           <h1 class="hero__name glitch-text" data-text="Emihle Maxengana">
             Emihle Maxengana
           </h1>
 
-          <!-- ROTATING ROLES -->
           <div class="hero__roles">
             <span class="roles__rotating">{{ currentRole }}</span>
           </div>
@@ -32,12 +28,10 @@
           </p>
 
           <div class="hero__actions">
-            <!-- View My Work -->
             <a href="#projects" class="btn btn--primary" @click.prevent="scrollTo('projects')">
               View My Work
             </a>
 
-            <!-- Download CV (in between) -->
             <a 
               href="/Emihle_Maxengana_Modern_CV.pdf" 
               download="Emihle_Maxengana_Modern_CV.pdf"
@@ -47,7 +41,6 @@
               Download CV
             </a>
 
-            <!-- Get In Touch -->
             <a href="#contact" class="btn btn--ghost" @click.prevent="scrollTo('contact')">
               Get In Touch
             </a>
