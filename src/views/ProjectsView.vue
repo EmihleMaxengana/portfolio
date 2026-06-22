@@ -23,7 +23,7 @@
             <!-- Loop over chunks (each chunk is a slide with 3 cards) -->
             <div v-for="(chunk, slideIndex) in projectChunks" :key="slideIndex" class="carousel-slide">
               <div class="slide-grid">
-                <div v-for="project in chunk" :key="project.title" class="project-card">
+                <div v-for="project in chunk" :key="project.title" class="project-card" @click="openModal(project)">
                   <div class="project-card__image">
                     <img 
                       :src="project.image" 
@@ -38,8 +38,8 @@
                       <span v-for="tag in project.tags" :key="tag">{{ tag }}</span>
                     </div>
                     <div class="project-card__links">
-                      <a v-if="project.demo" :href="project.demo" target="_blank" rel="noopener noreferrer" class="project-link">Live Demo</a>
-                      <a v-if="project.code" :href="project.code" target="_blank" rel="noopener noreferrer" class="project-link">Source Code</a>
+                      <a v-if="project.demo" :href="project.demo" target="_blank" rel="noopener noreferrer" class="project-link" @click.stop>Live Demo</a>
+                      <a v-if="project.code" :href="project.code" target="_blank" rel="noopener noreferrer" class="project-link" @click.stop>Source Code</a>
                     </div>
                   </div>
                 </div>
@@ -67,6 +67,38 @@
         ></button>
       </div>
     </div>
+
+    <!-- Modal -->
+    <Transition name="modal">
+      <div v-if="selectedProject" class="modal-overlay" @click="closeModal">
+        <div class="modal-content" @click.stop>
+          <button class="modal-close" @click="closeModal" aria-label="Close modal">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+          
+          <div class="modal-image">
+            <img :src="selectedProject.image" :alt="selectedProject.title" />
+          </div>
+          
+          <div class="modal-body">
+            <h2 class="modal-title">{{ selectedProject.title }}</h2>
+            <p class="modal-description">{{ selectedProject.description }}</p>
+            
+            <div class="modal-tags">
+              <span v-for="tag in selectedProject.tags" :key="tag" class="modal-tag">{{ tag }}</span>
+            </div>
+            
+            <div class="modal-links">
+              <a v-if="selectedProject.demo" :href="selectedProject.demo" target="_blank" rel="noopener noreferrer" class="modal-link modal-link--primary">Live Demo</a>
+              <a v-if="selectedProject.code" :href="selectedProject.code" target="_blank" rel="noopener noreferrer" class="modal-link modal-link--secondary">Source Code</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Transition>
   </main>
 </template>
 
@@ -82,18 +114,23 @@ export default {
   data() {
     return {
       currentIndex: 0,
+      selectedProject: null,
       projects: [
         {
           title: 'Portfolio Website',
-          description: 'A modern, fully responsive portfolio with glitch effects.',
+          description: `This is a modern, single-page portfolio website built with Vue 3 and Vite, designed to showcase the skills and projects of Emihle Maxengana, 
+          a Full-Stack Developer. The site features a dark, elegant aesthetic with hot pink accents and subtle glitch effects, creating a distinctive personal brand. 
+          The layout includes five main sections: a hero section with a rotating role display and profile image, an About section with a bio and glitched title, a Skills
+           section featuring an autoplay carousel of technology icons, a Projects section with a card-based carousel and interactive modal popups for full project details, 
+           and a Contact section with both Gmail and mailto options for reaching out. The website is fully responsive, works across all devices, and includes smooth scrolling 
+           navigation with a fixed header. `,
           tags: ['Vue.js', 'CSS', 'Javascript', 'HTML'],
           image: FrontEndImage,
-          demo: 'https://your-demo-link.com',
           code: 'https://github.com/EmihleMaxengana/portfolio.git'
         },
         {
           title: 'E-Commerce Store',
-          description: `Cape Route Tours is a tourism booking and management platform built with Vue.js (front-end), Node.js + Express (back-end), and MySQL (database). The system allows tourists to explore Cape Town’s townships, book cultural tours, read blogs, and contact the company — while the admin can manage tours, bookings, and content.`,
+          description: `Cape Route Tours is a tourism booking and management platform built with Vue.js (front-end), Node.js + Express (back-end), and MySQL (database). The system allows tourists to explore Cape Town's townships, book cultural tours, read blogs, and contact the company — while the admin can manage tours, bookings, and content.`,
           tags: ['Vue.js', 'Vue Router', 'Axios', 'Bootstrap', 'Animate.css', 'Font Awesome', 'Node.js', 'Express.js', 'MySQL'],
           image: ECommerceImage,
           demo: 'https://cape-route-tours.netlify.app',
@@ -117,7 +154,9 @@ export default {
         },
         {
           title: 'Mobile Application',
-          description: `Purple Safety is a Flutter mobile application providing personal safety features such as emergency alerts, contact management, location sharing, and safety tools. It supports Android and iOS and includes platform-specific native code and integrations for Firebase and device services.`,
+          description: `Purple Safety is a Flutter mobile application providing personal safety features such as 
+          emergency alerts, contact management, location sharing, and safety tools. It supports Android and iOS and 
+          includes platform-specific native code and integrations for Firebase and device services.`,
           tags: ['Dart', 'Flutter', 'HTML', 'Kotlin', 'CMake', 'c++', 'Swift', 'Firebase'],
           image: MobileApplicationImage
         }
@@ -152,6 +191,14 @@ export default {
     },
     goToSlide(index) {
       this.currentIndex = index
+    },
+    openModal(project) {
+      this.selectedProject = project
+      document.body.style.overflow = 'hidden'
+    },
+    closeModal() {
+      this.selectedProject = null
+      document.body.style.overflow = ''
     }
   }
 }
@@ -201,7 +248,7 @@ export default {
 .projects__container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: calc(var(--header-h) + 3rem) 2rem 5rem;
+  padding: calc(var(--header-h) + 1.5rem) 2rem 3rem;
   position: relative;
   z-index: 1;
 }
@@ -322,6 +369,7 @@ export default {
   width: 100%;
   max-width: 340px;
   margin: 0 auto;
+  cursor: pointer;
 }
 
 .project-card:hover {
@@ -474,6 +522,202 @@ export default {
   border-radius: 10px;
 }
 
+/* ============================================ */
+/* MODAL STYLES */
+/* ============================================ */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(26, 10, 15, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 2rem;
+  animation: modalFadeIn 0.3s ease;
+}
+
+.modal-content {
+  background: var(--dark-base);
+  border-radius: 24px;
+  max-width: 700px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  border: 1px solid rgba(233, 30, 140, 0.2);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+  position: relative;
+  animation: modalSlideUp 0.35s ease;
+}
+
+.modal-content::-webkit-scrollbar {
+  width: 4px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background: var(--pink-hot);
+  border-radius: 2px;
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(233, 30, 140, 0.15);
+  border: 1px solid rgba(233, 30, 140, 0.2);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--pink-blush);
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.modal-close:hover {
+  background: rgba(233, 30, 140, 0.3);
+  border-color: var(--pink-hot);
+  color: var(--pink-hot);
+  transform: rotate(90deg);
+}
+
+.modal-image {
+  width: 100%;
+  height: 240px;
+  overflow: hidden;
+  border-radius: 24px 24px 0 0;
+}
+
+.modal-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.modal-body {
+  padding: 2rem;
+}
+
+.modal-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  color: var(--pink-pale);
+  margin-bottom: 1rem;
+}
+
+.modal-description {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: rgba(244, 167, 195, 0.75);
+  margin-bottom: 1.5rem;
+  white-space: pre-wrap;
+}
+
+.modal-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.modal-tag {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  background: rgba(233, 30, 140, 0.15);
+  color: var(--pink-blush);
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid rgba(233, 30, 140, 0.1);
+}
+
+.modal-links {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.modal-link {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 999px;
+  transition: all 0.3s ease;
+}
+
+.modal-link--primary {
+  background: var(--pink-hot);
+  color: #fff;
+}
+
+.modal-link--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(233, 30, 140, 0.4);
+}
+
+.modal-link--secondary {
+  color: var(--pink-blush);
+  border: 1px solid rgba(244, 167, 195, 0.3);
+}
+
+.modal-link--secondary:hover {
+  background: rgba(244, 167, 195, 0.06);
+  border-color: rgba(244, 167, 195, 0.6);
+  transform: translateY(-2px);
+}
+
+/* Modal Animations */
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Modal Transition */
+.modal-enter-active {
+  animation: modalFadeIn 0.3s ease;
+}
+
+.modal-leave-active {
+  animation: modalFadeIn 0.25s ease reverse;
+}
+
+.modal-enter-active .modal-content {
+  animation: modalSlideUp 0.35s ease;
+}
+
+.modal-leave-active .modal-content {
+  animation: modalSlideUp 0.25s ease reverse;
+}
+
 /* Responsive */
 @media (max-width: 900px) {
   .slide-grid {
@@ -494,6 +738,24 @@ export default {
   }
   .project-card {
     max-width: 100%;
+  }
+  
+  .modal-content {
+    max-width: 100%;
+    margin: 1rem;
+    max-height: 85vh;
+  }
+  
+  .modal-image {
+    height: 180px;
+  }
+  
+  .modal-body {
+    padding: 1.5rem;
+  }
+  
+  .modal-title {
+    font-size: 1.4rem;
   }
 }
 </style>

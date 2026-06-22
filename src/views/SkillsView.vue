@@ -66,7 +66,6 @@
 </template>
 
 <script>
-// Import your skill images – using the actual file names from your assets
 import canvaIcon from '@/assets/Canva.jpg'
 import cssIcon from '@/assets/CSS.png'
 import dartIcon from '@/assets/dart.jpg'
@@ -157,7 +156,6 @@ export default {
 </script>
 
 <style scoped>
-/* (keep all your existing styles – they are unchanged) */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@400;500;600&display=swap');
 
 :root {
@@ -170,7 +168,7 @@ export default {
 
 .skills {
   background: var(--dark-base);
-  min-height: 100vh;
+  /* REMOVED min-height: 100vh – no more forced full viewport height */
   overflow-x: hidden;
 }
 
@@ -201,14 +199,15 @@ export default {
 .skills__container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: calc(var(--header-h) + 3rem) 2rem 5rem;
+  /* MINIMAL bottom padding – just a tiny gap before footer */
+  padding: calc(var(--header-h) + 1.5rem) 2rem 0.5rem;
   position: relative;
   z-index: 1;
 }
 
 .skills__header {
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: 1.5rem; /* reduced from 2rem */
 }
 
 .skills__title {
@@ -283,7 +282,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 2rem 0;
+  margin: 1rem 0 0.25rem 0; /* minimal margins */
 }
 
 .carousel-wrapper {
@@ -300,25 +299,25 @@ export default {
 
 .carousel-slide {
   flex: 0 0 100%;
-  padding: 1rem 0;
+  padding: 0.5rem 0; /* reduced from 1rem */
 }
 
 .slide-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
+  gap: 1rem; /* reduced from 1.5rem */
   justify-items: center;
 }
 
 .skill-card {
   background: rgba(233, 30, 140, 0.05);
   border-radius: 24px;
-  padding: 1.5rem;
+  padding: 1rem; /* reduced from 1.5rem */
   text-align: center;
   border: 1px solid rgba(233, 30, 140, 0.2);
   transition: all 0.3s ease;
   width: 100%;
-  max-width: 200px;
+  max-width: 180px; /* slightly smaller */
   margin: 0 auto;
 }
 
@@ -331,12 +330,12 @@ export default {
 .skill-card__image {
   display: flex;
   justify-content: center;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem; /* reduced */
 }
 
 .skill-img {
-  width: 70px;
-  height: 70px;
+  width: 60px; /* reduced from 70px */
+  height: 60px;
   object-fit: contain;
   filter: brightness(0.9) drop-shadow(0 0 5px rgba(233, 30, 140, 0.3));
   transition: all 0.3s ease;
@@ -349,7 +348,7 @@ export default {
 
 .skill-card__label {
   font-family: 'Inter', sans-serif;
-  font-size: 0.95rem;
+  font-size: 0.85rem; /* slightly smaller */
   font-weight: 600;
   color: var(--pink-blush);
 }
@@ -358,8 +357,8 @@ export default {
   background: rgba(233, 30, 140, 0.1);
   border: 1px solid rgba(233, 30, 140, 0.3);
   border-radius: 50%;
-  width: 48px;
-  height: 48px;
+  width: 40px; /* reduced from 48px */
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -379,14 +378,14 @@ export default {
 .carousel-indicators {
   display: flex;
   justify-content: center;
-  gap: 0.75rem;
-  margin-top: 2rem;
+  gap: 0.5rem; /* reduced */
+  margin-top: 0.25rem; /* almost nothing */
   flex-wrap: wrap;
 }
 
 .indicator {
-  width: 10px;
-  height: 10px;
+  width: 8px; /* reduced */
+  height: 8px;
   border-radius: 50%;
   background: rgba(244, 167, 195, 0.3);
   border: none;
@@ -401,7 +400,7 @@ export default {
 
 .indicator.active {
   background: var(--pink-hot);
-  width: 24px;
+  width: 20px; /* reduced */
   border-radius: 10px;
 }
 
@@ -413,14 +412,14 @@ export default {
 
 @media (max-width: 600px) {
   .skills__container {
-    padding: calc(var(--header-h) + 2rem) 1.5rem 4rem;
+    padding: calc(var(--header-h) + 1.5rem) 1.5rem 0.5rem;
   }
   .slide-grid {
     grid-template-columns: 1fr;
   }
   .carousel-btn {
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
   }
   .skill-card {
     max-width: 100%;

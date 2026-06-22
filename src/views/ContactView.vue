@@ -28,7 +28,7 @@
           <div class="contact__info">
             <h3 class="contact__info-title">Contact Information</h3>
             <div class="contact__details">
-              <a href="mailto:emihlemaxengana05@gmail.com?subject=Portfolio%20Inquiry&body=Hello%20Emihle%2C%0A%0AI%20came%20across%20your%20portfolio%20and%20would%20like%20to%20get%20in%20touch%20with%20you.%0A%0A" class="contact-detail">
+              <a href="mailto:emihlemaxengana05@gmail.com" class="contact-detail">
                 <svg class="detail-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
                   <polyline points="22,6 12,13 2,6"/>
@@ -47,94 +47,45 @@
                   <rect x="2" y="9" width="4" height="12"/>
                   <circle cx="4" cy="4" r="2"/>
                 </svg>
-                <span>LinkedIn Profile</span>
+                <span>Emihle Maxenganas</span>
               </a>
               <a href="https://github.com/EmihleMaxengana" target="_blank" rel="noopener noreferrer" class="contact-detail">
                 <svg class="detail-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
                 </svg>
-                <span>GitHub Profile</span>
+                <span>EmihleMaxengana</span>
               </a>
             </div>
           </div>
         </div>
 
-        <!-- Right: Form -->
+        <!-- Right: Gmail + mailto -->
         <div class="contact__right">
-          <form @submit.prevent="handleSubmit" class="contact-form">
-            <div class="form-row">
-              <div class="form-group">
-                <label for="name">Name</label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  v-model="form.name"
-                  placeholder="Enter your name"
-                  required
-                />
-              </div>
-              <div class="form-group">
-                <label for="phone">Phone Number</label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  v-model="form.phone"
-                  placeholder="Enter your phone number"
-                />
-              </div>
-            </div>
+          <div class="contact-options">
+            <h3 class="options-title">Send me an email</h3>
 
-            <div class="form-group">
-              <label for="email">Email Address</label>
-              <input
-                type="email"
-                id="email"
-                name="_replyto"
-                v-model="form.email"
-                placeholder="Enter your email"
-                required
-              />
-            </div>
+            <!-- Main button: Gmail compose -->
+            <a 
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=emihlemaxengana05@gmail.com&su=Portfolio%20Inquiry&body=Hello%20Emihle%2C%0A%0AI%20came%20across%20your%20portfolio%20and%20would%20like%20to%20get%20in%20touch%20with%20you.%0A%0APlease%20include%3A%0A-%20Your%20name%0A-%20Your%20phone%20number%20(optional)%0A-%20Your%20message%0A%0AThank%20you!"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-gmail"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+              Compose in Gmail
+            </a>
 
-            <div class="form-group">
-              <label for="message">Message</label>
-              <textarea
-                id="message"
-                name="message"
-                v-model="form.message"
-                rows="5"
-                placeholder="Write your message here"
-                required
-              ></textarea>
-            </div>
-
-            <!-- Hidden subject for email -->
-            <input type="hidden" name="_subject" :value="`New message from ${form.name || 'Visitor'}`" />
-
-            <button type="submit" class="submit-btn" :disabled="isSending">
-              {{ isSending ? 'Sending...' : 'Send Message' }}
-            </button>
-          </form>
-
-          <!-- Success message -->
-          <div v-if="showSuccess" class="success-message">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-              <polyline points="22 4 12 14.01 9 11.01"/>
-            </svg>
-            <span>Thank you! Your message has been sent.</span>
-          </div>
-
-          <!-- Error message -->
-          <div v-if="showError" class="error-message">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="10"/>
-              <line x1="12" y1="8" x2="12" y2="12"/>
-              <line x1="12" y1="16" x2="12.01" y2="16"/>
-            </svg>
-            <span>Failed to send. Please try again or email me directly.</span>
+            <!-- Alternative: mailto link -->
+            <p class="or-divider">— or —</p>
+            <a 
+              href="mailto:emihlemaxengana05@gmail.com?subject=Portfolio%20Inquiry&body=Hello%20Emihle%2C%0A%0AI%20came%20across%20your%20portfolio%20and%20would%20like%20to%20get%20in%20touch%20with%20you.%0A%0APlease%20include%3A%0A-%20Your%20name%0A-%20Your%20phone%20number%20(optional)%0A-%20Your%20message%0A%0AThank%20you!"
+              class="btn-mailto"
+            >
+              Use your default email client
+            </a>
           </div>
         </div>
       </div>
@@ -144,69 +95,13 @@
 
 <script>
 export default {
-  name: 'ContactView',
-  data() {
-    return {
-      form: {
-        name: '',
-        phone: '',
-        email: '',
-        message: ''
-      },
-      isSending: false,
-      showSuccess: false,
-      showError: false
-    }
-  },
-  methods: {
-    async handleSubmit() {
-      this.isSending = true
-      this.showSuccess = false
-      this.showError = false
-
-      const endpoint = 'https://formspree.io/f/xldpnbgr'
-
-      const formData = new FormData()
-      formData.append('name', this.form.name)
-      formData.append('phone', this.form.phone || 'Not provided')
-      formData.append('_replyto', this.form.email)
-      formData.append('message', this.form.message)
-      formData.append('_subject', `New message from ${this.form.name || 'Visitor'}`)
-
-      try {
-        const response = await fetch(endpoint, {
-          method: 'POST',
-          body: formData,
-          headers: {
-            'Accept': 'application/json'
-          }
-        })
-
-        const text = await response.text()
-        console.log('Formspree response:', text)
-
-        if (response.ok) {
-          this.showSuccess = true
-          this.form = { name: '', phone: '', email: '', message: '' }
-          setTimeout(() => { this.showSuccess = false }, 5000)
-        } else {
-          this.showError = true
-          console.error('Formspree error:', response.status, text)
-          setTimeout(() => { this.showError = false }, 5000)
-        }
-      } catch (error) {
-        console.error('Network error:', error)
-        this.showError = true
-        setTimeout(() => { this.showError = false }, 5000)
-      } finally {
-        this.isSending = false
-      }
-    }
-  }
+  name: 'ContactView'
 }
 </script>
 
 <style scoped>
+/* ── All styles remain, with additions for the new elements ── */
+
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@400;500;600&display=swap');
 
 :root {
@@ -223,7 +118,6 @@ export default {
   overflow-x: hidden;
 }
 
-/* Ambient orbs */
 .contact__orb {
   position: absolute;
   border-radius: 50%;
@@ -251,12 +145,11 @@ export default {
 .contact__container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: calc(var(--header-h) + 3rem) 2rem 5rem;
+  padding: calc(var(--header-h) + 1.5rem) 2rem 3rem;
   position: relative;
   z-index: 1;
 }
 
-/* Header */
 .contact__header {
   text-align: center;
   margin-bottom: 2rem;
@@ -280,10 +173,9 @@ export default {
   letter-spacing: 0.05em;
 }
 
-/* Bio Section */
 .contact__bio-section {
   max-width: 900px;
-  margin: 0 auto 3rem auto;
+  margin: 0 auto 2rem auto;
 }
 
 .contact__bio {
@@ -297,7 +189,6 @@ export default {
   border: none;
 }
 
-/* Glitch effect */
 .glitch-text {
   position: relative;
 }
@@ -347,14 +238,13 @@ export default {
   15% { transform: skew(0deg); }
 }
 
-/* Two column grid */
 .contact__grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 3rem;
 }
 
-/* Left - Info */
+/* Left side */
 .contact__left {
   background: rgba(233, 30, 140, 0.05);
   border-radius: 24px;
@@ -405,135 +295,78 @@ export default {
   transition: color 0.3s ease;
 }
 
-/* Right - Form */
+/* Right side */
 .contact__right {
   background: rgba(233, 30, 140, 0.05);
   border-radius: 24px;
   padding: 2rem;
   border: 1px solid rgba(233, 30, 140, 0.15);
-}
-
-.contact-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.form-row {
-  display: flex;
-  gap: 1rem;
-}
-
-.form-row .form-group {
-  flex: 1;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.form-group label {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--pink-blush);
-  letter-spacing: 0.03em;
-  text-align: left;
-}
-
-.form-group input,
-.form-group textarea {
-  background: rgba(233, 30, 140, 0.1);
-  border: 1px solid rgba(233, 30, 140, 0.2);
-  border-radius: 12px;
-  padding: 0.85rem 1rem;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.9rem;
-  color: var(--pink-pale);
-  transition: all 0.3s ease;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-  outline: none;
-  border-color: var(--pink-hot);
-  background: rgba(233, 30, 140, 0.15);
-}
-
-.form-group input::placeholder,
-.form-group textarea::placeholder {
-  color: rgba(244, 167, 195, 0.4);
-}
-
-.submit-btn {
-  background: var(--pink-hot);
-  color: white;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.9rem;
-  font-weight: 600;
-  padding: 0.85rem 2rem;
-  border: none;
-  border-radius: 999px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 0.5rem;
-  width: 100%;
-}
-
-.submit-btn:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(233, 30, 140, 0.4);
-}
-
-.submit-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.success-message,
-.error-message {
-  margin-top: 1.5rem;
-  padding: 1rem;
-  background: rgba(233, 30, 140, 0.15);
-  border: 1px solid rgba(233, 30, 140, 0.3);
-  border-radius: 12px;
   display: flex;
   align-items: center;
+  justify-content: center;
+}
+
+.contact-options {
+  text-align: center;
+  width: 100%;
+}
+
+.options-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--pink-pale);
+  margin-bottom: 1.5rem;
+}
+
+/* Gmail button */
+.btn-gmail {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   gap: 0.75rem;
+  background: var(--pink-hot);
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.9rem 2.5rem;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 30px rgba(233, 30, 140, 0.35);
+  width: 100%;
+  max-width: 280px;
+}
+
+.btn-gmail:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 40px rgba(233, 30, 140, 0.5);
+}
+
+/* Divider */
+.or-divider {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  color: rgba(244, 167, 195, 0.4);
+  margin: 1rem 0;
+}
+
+/* mailto link */
+.btn-mailto {
   font-family: 'Inter', sans-serif;
   font-size: 0.85rem;
-  animation: fadeUp 0.3s ease;
+  color: rgba(244, 167, 195, 0.6);
+  text-decoration: none;
+  transition: color 0.2s;
+  border-bottom: 1px dashed rgba(244, 167, 195, 0.2);
+  padding-bottom: 2px;
+  display: inline-block;
 }
 
-.success-message {
-  color: var(--pink-blush);
-}
-
-.success-message svg {
+.btn-mailto:hover {
   color: var(--pink-hot);
-}
-
-.error-message {
-  color: #ff6b6b;
-}
-
-.error-message svg {
-  color: #ff6b6b;
-}
-
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  border-bottom-color: var(--pink-hot);
 }
 
 /* Responsive */
@@ -541,9 +374,6 @@ export default {
   .contact__grid {
     grid-template-columns: 1fr;
     gap: 2rem;
-  }
-  .contact__bio {
-    font-size: 0.85rem;
   }
 }
 
@@ -558,15 +388,9 @@ export default {
   .contact-detail {
     font-size: 0.75rem;
   }
-  .submit-btn {
-    width: 100%;
-  }
-  .contact__bio {
-    font-size: 0.8rem;
-  }
-  .form-row {
-    flex-direction: column;
-    gap: 0;
+  .btn-gmail {
+    max-width: 100%;
+    padding: 0.9rem 1.5rem;
   }
 }
 </style>

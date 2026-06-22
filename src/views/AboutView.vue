@@ -101,7 +101,7 @@ export default {
 .about__container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: calc(var(--header-h) + 3rem) 2rem 5rem;
+  padding: calc(var(--header-h) + 1.5rem) 2rem 3rem;;
   position: relative;
   z-index: 1;
 }

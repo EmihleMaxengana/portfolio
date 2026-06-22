@@ -39,8 +39,8 @@
 
             <!-- Download CV (in between) -->
             <a 
-              href="/Emihle_Maxengana_CV.pdf" 
-              download="Emihle_Maxengana_CV.pdf"
+              href="/Emihle_Maxengana_Modern_CV.pdf" 
+              download="Emihle_Maxengana_Modern_CV.pdf"
               type="application/pdf"
               class="btn btn--download"
             >
@@ -129,7 +129,7 @@ export default {
 
 .hero {
   position: relative;
-  min-height: 100vh;
+  min-height: 80vh;
   padding: calc(var(--header-h) + 2rem) 2rem 4rem;
   max-width: 1200px;
   margin: 0 auto;
